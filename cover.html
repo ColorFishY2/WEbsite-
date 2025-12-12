@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Forensics / Anti-Cheat Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #020206;
+      --bg-panel: #070712;
+      --text: #ffffff;
+      --accent: #b026ff;
+      --accent-soft: #9b5cff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1b0833 0, #020206 50%, #000000 100%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    .outer-frame {
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .glow-shell {
+      width: 100%;
+      max-width: 1100px;
+      border-radius: 24px;
+      border: 2px solid var(--accent);
+      box-shadow:
+        0 0 18px var(--accent),
+        0 0 45px var(--accent-soft),
+        0 0 90px rgba(176, 38, 255, 0.7);
+      background: radial-gradient(circle at top left, #19052e 0, #05050b 45%, #020206 100%);
+      padding: 1px;
+    }
+
+    .page {
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(9, 9, 18, 0.95), rgba(3, 3, 9, 0.98));
+      padding: 1.75rem 1.5rem 1.75rem;
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 1.75rem;
+    }
+
+    @media (max-width: 800px) {
+      .page {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Sidebar / Navigation */
+    .sidebar {
+      border-radius: 18px;
+      background: radial-gradient(circle at top, #1b0934 0, #050511 60%);
+      padding: 1.5rem 1.25rem;
+      border: 1px solid rgba(176, 38, 255, 0.6);
+      box-shadow: 0 0 18px rgba(176, 38, 255, 0.45);
+    }
+
+    .brand {
+      margin-bottom: 1.25rem;
+    }
+
+    .brand-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #d2b3ff;
+      opacity: 0.9;
+    }
+
+    .brand-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .brand h1 {
+      font-size: 1.5rem;
+      margin-top: 0.35rem;
+      line-height: 1.2;
+    }
+
+    .brand h1 span {
+      color: var(--accent);
+    }
+
+    .brand p {
+      margin-top: 0.45rem;
+      font-size: 0.85rem;
+      color: #d0c9ff;
+      opacity: 0.85;
+    }
+
+    nav {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(8, 8, 20, 0.8);
+      border: 1px solid transparent;
+      color: #f7f4ff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transition: 0.18s ease;
+    }
+
+    .nav-item span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .nav-pill {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.4);
+    }
+
+    .nav-badge {
+      font-size: 0.65rem;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(176, 38, 255, 0.1);
+      border: 1px solid rgba(176, 38, 255, 0.65);
+      color: #f3ddff;
+    }
+
+    .nav-item:hover {
+      border-color: rgba(176, 38, 255, 0.9);
+      background: radial-gradient(circle at left, rgba(176, 38, 255, 0.22), rgba(7, 7, 20, 0.95));
+      box-shadow:
+        0 0 14px rgba(176, 38, 255, 0.75),
+        0 0 30px rgba(155, 92, 255, 0.8);
+      transform: translateX(2px);
+      color: #ffffff;
+    }
+
+    .nav-item:hover .nav-pill {
+      background: var(--accent);
+      box-shadow: 0 0 14px var(--accent);
+    }
+
+    .nav-item.active {
+      border-color: rgba(176, 38, 255, 1);
+      background: radial-gradient(circle at left, rgba(176, 38, 255, 0.35), rgba(3, 3, 10, 0.98));
+      box-shadow:
+        0 0 18px rgba(176, 38, 255, 0.9),
+        0 0 40px rgba(155, 92, 255, 0.9);
+    }
+
+    .sidebar-footer {
+      margin-top: 1.6rem;
+      font-size: 0.72rem;
+      color: #aaa0ff;
+      opacity: 0.75;
+    }
+
+    /* Content */
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    section {
+      border-radius: 16px;
+      padding: 1.25rem 1.1rem;
+      background: radial-gradient(circle at top, rgba(26, 9, 52, 0.45), rgba(5, 5, 18, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    section h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #f6e8ff;
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      color: #cbbfff;
+      opacity: 0.9;
+      margin-bottom: 0.7rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.35rem;
+    }
+
+    .pill {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #efe9ff;
+      background: rgba(8, 8, 20, 0.95);
+    }
+
+    .pill.accent {
+      border-color: rgba(176, 38, 255, 0.9);
+      background: radial-gradient(circle at top, rgba(176, 38, 255, 0.6), rgba(8, 8, 20, 0.95));
+      box-shadow: 0 0 12px rgba(176, 38, 255, 0.8);
+    }
+
+    .mono {
+      font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
+      font-size: 0.78rem;
+      color: #dbe5ff;
+      opacity: 0.95;
+    }
+
+    .section-footer {
+      margin-top: 0.6rem;
+      font-size: 0.7rem;
+      color: #a29bff;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="outer-frame">
+    <div class="glow-shell">
+      <div class="page">
+        <!-- Sidebar / Kategorien -->
+        <aside class="sidebar">
+          <div class="brand">
+            <div class="brand-label">
+              <span class="brand-dot"></span>
+              <span>Forensics Interface</span>
+            </div>
+            <h1>Forensics<span>/</span>Anti‑Cheat Lab</h1>
+            <p>Minimaler Hub für DFIR, FiveM‑Cheat‑Forensics und Lab‑Cases.</p>
+          </div>
+
+          <nav>
+            <a href="#hero" class="nav-item active">
+              <span>
+                <span class="nav-pill"></span>
+                Overview
+              </span>
+              <span class="nav-badge">Start</span>
+            </a>
+            <a href="#dfir" class="nav-item">
+              <span>
+                <span class="nav-pill"></span>
+                DFIR Basics
+              </span>
+              <span class="nav-badge">Core</span>
+            </a>
+            <a href="#fivem" class="nav-item">
+              <span>
+                <span class="nav-pill"></span>
+                FiveM Cheat Forensics
+              </span>
+              <span class="nav-badge">Focus</span>
+            </a>
+            <a href="#labs" class="nav-item">
+              <span>
+                <span class="nav-pill"></span>
+                Labs & Case Files
+              </span>
+              <span class="nav-badge">Live</span>
+            </a>
+            <a href="#tools" class="nav-item">
+              <span>
+                <span class="nav-pill"></span>
+                Tools & Resources
+              </span>
+              <span class="nav-badge">Stack</span>
+            </a>
+          </nav>
+
+          <div class="sidebar-footer">
+            Nur Kategorien & Struktur.<br>
+            Content folgt pro Bereich (kein Cheat‑Sharing, nur Forensics & Detection).
+          </div>
+        </aside>
+
+        <!-- Content Sections -->
+        <main class="content">
+          <section id="hero">
+            <h2>Overview</h2>
+            <p class="tagline">Eine kompakte Oberfläche für alles rund um digitale Forensik und Anti‑Cheat‑Analyse mit Schwerpunkt FiveM.</p>
+            <div class="pill-row">
+              <span class="pill accent">Digital Forensics</span>
+              <span class="pill accent">FiveM Anti‑Cheat</span>
+              <span class="pill">Cheat‑Artefakte</span>
+              <span class="pill">PC‑Scanner</span>
+              <span class="pill">Windows Artefacts</span>
+              <span class="pill">Timeline & Logs</span>
+            </div>
+            <p class="section-footer mono">
+              // Wähle links eine Kategorie, um tiefer in DFIR‑Grundlagen, FiveM‑Cheat‑Forensics,
+              Labs oder Tool‑Stacks einzusteigen.
+            </p>
+          </section>
+
+          <section id="dfir">
+            <h2>DFIR Basics</h2>
+            <p class="tagline">Grundlagen der digitalen Forensik: Prozess, Beweissicherung und Analyse‑Workflows als Basis für alles Weitere.</p>
+            <div class="pill-row">
+              <span class="pill accent">Forensic Process</span>
+              <span class="pill">Identify → Preserve → Analyze → Report</span>
+              <span class="pill">Chain of Custody</span>
+              <span class="pill">Static & Dynamic Analysis</span>
+              <span class="pill">Incident Response</span>
+            </div>
+            <p class="section-footer mono">
+              // Geplant: kurze, tool‑agnostische Erklärungen zu DFIR‑Prozess, Evidence‑Handling
+              und Malware/Tool‑Analyse‑Frameworks.
+            </p>
+          </section>
+
+          <section id="fivem">
+            <h2>FiveM Cheat Forensics</h2>
+            <p class="tagline">Spezifischer Blick auf FiveM‑Cheats, deren Spuren im System und typische Anti‑Cheat‑/Scanner‑Konzepte.</p>
+            <div class="pill-row">
+              <span class="pill accent">Cheat Artefacts</span>
+              <span class="pill">Loader & Injectors</span>
+              <span class="pill">Hashes & Signatures</span>
+              <span class="pill">Prefetch / Recent Files</span>
+              <span class="pill">Registry & Traces</span>
+              <span class="pill">PC‑Scan Ethics</span>
+            </div>
+            <p class="section-footer mono">
+              // Fokus: technische Forensics & Detection‑Ansätze für FiveM‑Cheats –
+              keine Cheat‑Releases, keine Bypass‑Guides.
+            </p>
+          </section>
+
+          <section id="labs">
+            <h2>Labs & Case Files</h2>
+            <p class="tagline">Praktische Labs und Case‑Analysen: sauberes System vs. System mit Cheat‑Artefakten, Timelines, Logs und Reports.</p>
+            <div class="pill-row">
+              <span class="pill accent">Windows Artefact Labs</span>
+              <span class="pill">Timeline Comparisons</span>
+              <span class="pill">System Images</span>
+              <span class="pill">Cheat‑Detection Walkthroughs</span>
+              <span class="pill">Report‑Strukturen</span>
+            </div>
+            <p class="section-footer mono">
+              // Idee: Schritt‑für‑Schritt‑Analysen von Beispielsystemen dokumentieren,
+              reproduzierbar und klar getrennt nach Szenarien.
+            </p>
+          </section>
+
+          <section id="tools">
+            <h2>Tools & Resources</h2>
+            <p class="tagline">Sammlung von Forensic‑Tools, Anti‑Cheat‑Stacks und externen Ressourcen für DFIR‑ und FiveM‑Analysen.</p>
+            <div class="pill-row">
+              <span class="pill accent">Forensic Suites</span>
+              <span class="pill">PC‑Scanner & Anti‑Cheats</span>
+              <span class="pill">Windows Artefact Viewer</span>
+              <span class="pill">Hash‑Datenbanken</span>
+              <span class="pill">DFIR‑Guides & Labs</span>
+            </div>
+            <p class="section-footer mono">
+              // Später: Links & kurze Beschreibungen zu DFIR‑Tools, FiveM‑Anti‑Cheats
+              und relevanten Lernressourcen.
+            </p>
+
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
