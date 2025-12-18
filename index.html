@@ -8,10 +8,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #000; color: #fff; height: 100vh; overflow: hidden; }
         .container { display: flex; height: 100vh; box-shadow: 0 0 50px #b026ff, inset 0 0 50px rgba(176,38,255,0.1); }
-        .sidebar { width: 240px; background: #202225; padding: 20px 0; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 100vh; }
+        .sidebar { width: 240px; background: #202225; padding: 20px 0; display: flex; flex-direction: column; gap: 8px; }
         .nav-item { padding: 12px 20px; color: #8e9297; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 0 8px 8px 0; transition: all 0.2s; }
         .nav-item:hover, .nav-item.active { background: #5865f2; color: #fff; text-shadow: 0 0 10px #b026ff; }
-        .main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; }
         .content-panel { background: #36393f; padding: 40px; border-radius: 12px; width: 900px; height: 480px; overflow-y: auto; box-shadow: 0 10px 40px rgba(176,38,255,0.3); border: 1px solid #40444b; }
         .content-panel h2 { color: #fff; margin-bottom: 20px; font-size: 28px; }
         .content-panel p { line-height: 1.6; color: #dcddde; }
@@ -21,7 +21,7 @@
         #password-input { width: 250px; padding: 12px; background: #40444b; border: 1px solid #5865f2; color: #fff; border-radius: 6px; }
         #password-btn { padding: 12px 24px; background: #5865f2; border: none; color: #fff; border-radius: 6px; cursor: pointer; margin-top: 10px; }
         .hidden { display: none !important; }
-        .sublist { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+        .sublist { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
         .sub-item { background: #2f3136; padding: 8px 12px; border-radius: 6px; font-weight: 500; color: #fff; border-left: 3px solid #b026ff; cursor: pointer; transition: background 0.15s, transform 0.1s; }
         .sub-item:hover { background: #3b3e45; transform: translateX(2px); }
         .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
@@ -61,10 +61,8 @@
         </nav>
         <main class="main">
             <div id="content-home" class="content-panel">
-                <h2>OmarY2</h2>
-                <p>Ich werde euch hier die Möglichkeit geben, viel zu lernen. Für die Bastarde, die sagen, dass ich Fehlbanns gemacht habe, werde ich mit der Zeit viele Sachen reinsenden und euch zeigen, wie ihr mehrere Cheats finden könntet.
-
-Ich habe heute erst mit der Seite begonnen und habe schon ein paar Sachen reingemacht, die euch helfen können. Mit der Zeit werden viel mehr Sachen kommen.</p>
+                <h2>Willkommen bei OmarY2</h2>
+                <p>Dein Dashboard für System-Optimierung, Gaming und Forensics. Wähle eine Kategorie links aus.</p>
             </div>
             <div id="content-memory" class="content-panel hidden">
                 <h2>Memory dump</h2>
@@ -86,35 +84,31 @@ Ich habe heute erst mit der Seite begonnen und habe schon ein paar Sachen reinge
                 <h2>Guides</h2>
                 <div class="sublist">
                     <div class="sub-item" data-sub="everything-tool">Everything Tool</div>
-                    <div class="sub-item" data-sub="nirsoft-tools">Nirsoft Tools
             <div id="content-dma" class="content-panel hidden">
-            </div>
-<div>           
-    <h2>DMA</h2>
-    <div class="sublist">
-        <div class="sub-item" data-sub="dma-part1">DMA Detections Part 1</div>
-        <div class="sub-item" data-sub="dma-part2">DMA Detections Part 2</div>
-        <div class="sub-item" data-sub="what-is-dm">What Is Device Manager</div>
-    </div>
-</div>
-
+                <h2>DMA</h2>
+                <div class="sublist">
+                    <div class="sub-item" data-sub="dma-info">DMA Info</div>
+                    <div class="sub-item" data-sub="dma-tools">DMA Tools</div>
+                    <div class="sub-item" data-sub="dma-analysis">DMA Analysis</div>
+                </div>
             </div>
             <div id="content-eufi" class="content-panel hidden">
                 <h2>EUFI</h2>
                 <div class="sublist">
-                    <div class="sub-item">EUFI Settings</div>
-                    <div class="sub-item">EUFI Tools</div>
-                    <div class="sub-item">EUFI Guide</div>
+                    <div class="sub-item" data-sub="eufi-settings">EUFI Settings</div>
+                    <div class="sub-item" data-sub="eufi-tools">EUFI Tools</div>
+                    <div class="sub-item" data-sub="eufi-guide">EUFI Guide</div>
                 </div>
             </div>
             <div id="content-privat" class="content-panel hidden">
                 <h2>Privat tool</h2>
                 <div class="sublist">
-                    <div class="sub-item">Features</div>
-                    <div class="sub-item">Configuration</div>
-                    <div class="sub-item">Documentation</div>
+                    <div class="sub-item" data-sub="privat-features">Features</div>
+                    <div class="sub-item" data-sub="privat-config">Configuration</div>
+                    <div class="sub-item" data-sub="privat-docs">Documentation</div>
                 </div>
-            </div></div>
+            </div>
+                    <div class="sub-item" data-sub="nirsoft-tools">Nirsoft Tools</div>
                     <div class="sub-item" data-sub="windows-tools">Windows Tools</div>
                 </div>
             </div>
@@ -122,7 +116,7 @@ Ich habe heute erst mit der Seite begonnen und habe schon ein paar Sachen reinge
     </div>
     <div class="footer">OmarY2 © 2025</div>
     <script>
-        const correctPassword = "o";
+        const correctPassword = "omar123";
         document.getElementById('password-form').addEventListener('submit', function(e) {
             e.preventDefault();
             if (document.getElementById('password-input').value === correctPassword) {
@@ -170,22 +164,7 @@ Ich habe heute erst mit der Seite begonnen und habe schon ein paar Sachen reinge
           'run-command': { title: 'Run command', content: `<div class="message"><img class="avatar" src="avatar.png"><div class="message-body"><div class="message-header"><span class="username">OmarY2</span><span class="timestamp">Heute um 12:25</span></div><div class="message-content">* WINDOWS + R METHODEN!<br><br>de>temp</code> ----------- <strong>[Temp Apps/Dateien (Cheats und Bypasses verstecken sich hier)]</strong><br>de>Recent</code> ----------- <strong>[Prüft kürzlich verwendete Dateien/exe]</strong><br>de>%temp%</code> ----------- <strong>[Temp Apps/Dateien (Cheats und Bypasses verstecken sich hier)]</strong><br>de>Prefetch</code> ----------- <strong>[Alle ausgeführten Programme auf dem Computer]</strong><br>de>shell:recent</code> ----------- <strong>[Prüft kürzlich verwendete Dateien/exe]</strong><br>de>C:\\Users\\%username%\\AppData\\Roaming</code> ----- <strong>[Suche nach Cheat-Namen-Ordnern hier]</strong><br>de>C:\\Users\\%username%\\Appdata\\Local\\CrashDumps</code> ----- <strong>[Prüft Crash Dumps]</strong><br>de>C:\\Users\\%username%\\Appdata\\Local\\Microsoft\\CLR_v4.0</code> ----- <strong>[Prüft gestoppte Journals]</strong><br>de>%appdata%\\Microsoft\\Windows\\PowerShell\\PSReadLine\\ConsoleHost_History.txt</code> ----- <strong>[PowerShell Ausführungen]</strong><br><br>✦•······················•✦•······················•✦✦•······················•✦•······················•✦<br><br><strong>Logs von C# Anwendungen, diese werden generiert, wenn die Anwendung geschlossen wird.</strong><br><br>Es gibt 4 Usagelogs Pfade in Windows, ich liste sie unten auf.<br>- de>C:\\Users\\%username%\\AppData\\Local\\Microsoft\\CLR_v4.0\\UsageLogs\\</code> [64 BITS]<br>- de>C:\\Users\\%username%\\AppData\\Local\\Microsoft\\CLR_v4.0_32\\UsageLogs\\</code> [32 BITS]<br>- de>C:\\WINDOWS\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\CLR_v4.0\\UsageLogs\\</code> [64 BITS]<br>- de>C:\\WINDOWS\\SysWOW64\\config\\systemprofile\\AppData\\Local\\Microsoft\\CLR_v4.0_32\\UsageLogs\\</code> [32 BITS]<br><br><strong>Schritte zum Folgen</strong><br>1) Wir führen aus <strong>Windows + R =</strong> <em>den Pfad zum Analysieren, ich empfehle:</em> de>C:\\Users\\%username%\\AppData\\Local\\Microsoft..</code><br>2) Wir analysieren die Ergebnisse der Anwendungen.<br><br>=================================================================<br>-<br><strong>Mit diesen Windows + R Befehlen suchst du nach Dingen wie</strong><br>• Cheat EXE's<br>• Loader Namen<br>• Loader Dateien<br>• AI Dateien, die sich im Papierkorb verstecken<br>• Kürzlich ausgeführte/geöffnete Dateien<br>• Crash Logs um zu sehen, was den Crash verursacht hat<br>• PowerShell Historie - du kannst ihre ausgeführten PowerShell-Befehle sehen</div></div></div>` },
           'vm-check': { title: 'Virtual Machine check', content: `<div class="message"><img class="avatar" src="avatar.png"><div class="message-body"><div class="message-header"><span class="username">OmarY2</span><span class="timestamp">Heute um 12:26</span></div><div class="message-content">* Virtual Machine<br><br>Wenn wir vermuten, dass der Benutzer in einer virtuellen Maschine ist, haben wir mehrere Referenzpunkte, um diese Tatsache zu bestätigen.<br><br><strong>Schritte zum Folgen [windows]</strong><br><br><strong>1)</strong> Führe die Kombination aus: <strong>Windows + R</strong><br><br><strong>2)</strong> Wir geben ein: de>Msinfo32</code><br><br><strong>3)</strong> Wir sehen die Sektion: <strong>System Model</strong> <em>(Bearbeitet)</em></div></div></div>` },
           'nvidia-method': { title: 'Nvidia method', content: `<div class="message"><img class="avatar" src="avatar.png"><div class="message-body"><div class="message-header"><span class="username">OmarY2</span><span class="timestamp">Heute um 12:27</span></div><div class="message-content">* Nvidia control panel<br><br>Wir können die kürzlich ausgeführten Anwendungen über das Nvidia Control Panel sehen.<br><br><strong>Schritte zum Folgen</strong><br><br><strong>1)</strong> Rechtsklick auf den Desktop und wähle de>Nvidia Control Panel</code>.<br><br><strong>2)</strong> Wähle de>Manage 3D Settings</code> und dann de>Program Settings</code> und wähle dann de>add</code>. <em>(Bearbeitet)</em></div></div></div>` }
-        
-                  'dma-part1': {
-            title: 'DMA Detections Part 1',
-            content: `<div class="message"><img class="avatar" src="avatar.png"><div class="message-body"><div class="message-header"><span class="username">OmarY2</span><span class="timestamp">Heute um 12:30</span></div><div class="message-content">[DEUTSCHER INHALT FÜR DMA Detections Part 1 KOMMT HIER HIN]</div></div></div>`
-          },
-          'dma-part2': {
-            title: 'DMA Detections Part 2',
-            content: `<div class="message"><img class="avatar" src="avatar.png"><div class="message-body"><div class="message-header"><span class="username">OmarY2</span><span class="timestamp">Heute um 12:31</span></div><div class="message-content">[DEUTSCHER INHALT FÜR DMA Detections Part 2 KOMMT HIER HIN]</div></div></div>`
-          },
-          'what-is-dm': {
-            title: 'What Is Device Manager',
-            content: `<div class="message"><img class="avatar" src="avatar.png"><div class="message-body"><div class="message-header"><span class="username">OmarY2</span><span class="timestamp">Heute um 12:32</span></div><div class="message-content">[DEUTSCHER INHALT FÜR What Is Device Manager KOMMT HIER HIN]</div></div></div>`
-          },
-
         };
-
         function openModal(key) {
           const data = subContents[key];
           if (!data) return;
@@ -203,4 +182,3 @@ Ich habe heute erst mit der Seite begonnen und habe schon ein paar Sachen reinge
     </script>
 </body>
 </html>
-
